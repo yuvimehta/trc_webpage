@@ -16,6 +16,7 @@ import {
   Shield,
   Gauge,
 } from "lucide-react";
+import Image from "next/image";
 import SectionHeading from "@/components/SectionHeading";
 import PlaceholderImage from "@/components/PlaceholderImage";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -148,7 +149,14 @@ export default function ProductPage() {
               </div>
             </AnimatedSection>
             <AnimatedSection delay={0.2}>
-              <PlaceholderImage label="Cobot Product Render" aspectRatio="1/1" />
+              <Image
+                src="/assets/logos/Cobot.png"
+                alt="TRC Cobot"
+                width={600}
+                height={600}
+                className="w-full h-auto rounded-lg object-contain"
+                priority
+              />
             </AnimatedSection>
           </div>
         </div>
@@ -249,9 +257,12 @@ export default function ProductPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection>
-              <PlaceholderImage
-                label="AI Programming Interface"
-                aspectRatio="4/3"
+              <Image
+                src="/assets/block_program.png"
+                alt="AI Programming Interface"
+                width={800}
+                height={600}
+                className="w-full h-auto rounded-lg object-contain"
               />
             </AnimatedSection>
             <AnimatedSection delay={0.2}>

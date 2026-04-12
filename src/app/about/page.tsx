@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Check, X, Minus } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import PlaceholderImage from "@/components/PlaceholderImage";
@@ -92,7 +93,13 @@ export default function AboutPage() {
               </p>
             </AnimatedSection>
             <AnimatedSection delay={0.2}>
-              <PlaceholderImage label="Team / Factory Photo" aspectRatio="4/3" />
+              <Image
+                src="/assets/about_render.png"
+                alt="About TRC"
+                width={800}
+                height={600}
+                className="w-full h-auto rounded-lg object-contain"
+              />
             </AnimatedSection>
           </div>
         </div>

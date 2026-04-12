@@ -204,7 +204,7 @@ export default function ContactPage() {
                             Phone
                           </p>
                           <p className="text-sm text-muted">
-                            Available on request
+                          +91-9891270881
                           </p>
                         </div>
                       </div>

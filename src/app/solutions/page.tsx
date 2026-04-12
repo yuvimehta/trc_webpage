@@ -154,10 +154,15 @@ export default function SolutionsPage() {
               </div>
             </AnimatedSection>
             <AnimatedSection delay={0.2}>
-              <PlaceholderImage
-                label="Robot Deployment Photo"
-                aspectRatio="4/3"
-              />
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-auto rounded-lg object-cover aspect-[4/3]"
+              >
+                <source src="/assets/logos/plasm.mp4" type="video/mp4" />
+              </video>
             </AnimatedSection>
           </div>
         </div>
