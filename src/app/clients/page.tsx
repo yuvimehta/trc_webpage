@@ -1,6 +1,6 @@
 "use client";
 
-import { Building2, Handshake, Quote } from "lucide-react";
+import { Quote } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import AnimatedSection from "@/components/AnimatedSection";
 import Marquee from "@/components/Marquee";
@@ -17,63 +17,6 @@ const clientLogos = [
   { name: "Crimson", logo: "/assets/clientele/crimson.png" },
   { name: "Cubamars", logo: "/assets/clientele/cubamars.png" },
   { name: "KB Components", logo: "/assets/clientele/KB_components.png" },
-];
-
-const clients = [
-  {
-    name: "PG Electroplast Ltd",
-    badge: "NSE Listed",
-    industry: "Automotive Electronics",
-  },
-  {
-    name: "JBJ Technologies",
-    badge: "Repeat — 2 Applications",
-    industry: "Plastics Manufacturing",
-  },
-  {
-    name: "JJ Technoplast",
-    badge: "Repeat Customer",
-    industry: "Plastics / Packaging",
-  },
-];
-
-const deployments = [
-  {
-    client: "PG Electroplast Ltd",
-    application: "Pick & Place / SPM",
-    industry: "Automotive Electronics",
-    timeline: "1 wk FAT / 2-3 wk SAT",
-    note: "Public Listed Co.",
-  },
-  {
-    client: "JBJ Technologies",
-    application: "Pick & Place / Machine Tending",
-    industry: "Plastics Manufacturing",
-    timeline: "2 wk FAT / 3-5 wk SAT",
-    note: "Repeat Customer",
-  },
-  {
-    client: "JJ Technoplast",
-    application: "Glue Spraying / SPM",
-    industry: "Plastics / Packaging",
-    timeline: "3 wk FAT / 4-5 wk SAT",
-    note: "Repeat Customer",
-  },
-  {
-    client: "JBJ Technologies",
-    application: "Plasma Treatment / SPM",
-    industry: "Surface Finishing",
-    timeline: "3 wk FAT / 3-4 wk SAT",
-    note: "2nd Application",
-  },
-];
-
-const partners = [
-  { name: "Hito Robotics", type: "Ecosystem Partner" },
-  { name: "xLogic", type: "SI Partner" },
-  { name: "Airbound", type: "Distribution Partner" },
-  { name: "IIHL", type: "Channel Partner" },
-  { name: "Zomato Ecosystem", type: "Strategic Relationship" },
 ];
 
 const testimonials = [
@@ -121,128 +64,6 @@ export default function ClientsPage() {
 
       {/* Marquee */}
       <Marquee items={clientLogos} />
-
-      {/* Client Cards */}
-      <section className="py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <AnimatedSection>
-            <SectionHeading
-              tag="Active Clients"
-              title="Enterprise Customers"
-            />
-          </AnimatedSection>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {clients.map((client, i) => (
-              <AnimatedSection key={client.name} delay={i * 0.1}>
-                <div className="group rounded-lg border border-dashed border-border bg-card p-6 transition-all hover:border-accent/30 hover:shadow-[0_0_30px_rgba(255,59,48,0.05)]">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-11 h-11 rounded border border-border bg-background flex items-center justify-center shrink-0 group-hover:border-accent/30 transition-colors">
-                      <Building2 size={20} className="text-accent" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-sm">{client.name}</h3>
-                      <span className="inline-block mt-1 text-[10px] font-mono text-accent bg-accent/10 border border-accent/20 rounded px-2 py-0.5 uppercase tracking-wider">
-                        {client.badge}
-                      </span>
-                    </div>
-                  </div>
-                  <p className="text-sm text-muted">{client.industry}</p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Live Deployments */}
-      <section className="py-24 lg:py-32 bg-card">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <AnimatedSection>
-            <SectionHeading
-              tag="Deployments"
-              title="Live Factory Deployments"
-              description="All deployments live and running in production — not prototypes."
-            />
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.2}>
-            <div className="overflow-x-auto rounded-lg border border-border">
-              <table className="w-full min-w-[700px]">
-                <thead>
-                  <tr className="border-b border-border bg-background">
-                    {["Client", "Application", "Industry", "Timeline", "Note"].map(
-                      (header) => (
-                        <th
-                          key={header}
-                          className="text-left py-3.5 px-4 text-[11px] font-mono font-semibold text-muted-dark uppercase tracking-widest"
-                        >
-                          {header}
-                        </th>
-                      )
-                    )}
-                  </tr>
-                </thead>
-                <tbody>
-                  {deployments.map((d, i) => (
-                    <tr
-                      key={i}
-                      className="border-b border-border/50 hover:bg-card-hover transition-colors"
-                    >
-                      <td className="py-3.5 px-4 text-sm font-medium">
-                        {d.client}
-                      </td>
-                      <td className="py-3.5 px-4 text-sm text-muted">
-                        {d.application}
-                      </td>
-                      <td className="py-3.5 px-4 text-sm text-muted">
-                        {d.industry}
-                      </td>
-                      <td className="py-3.5 px-4 text-[11px] text-muted font-mono tracking-wider">
-                        {d.timeline}
-                      </td>
-                      <td className="py-3.5 px-4">
-                        <span className="inline-block text-[10px] font-mono text-accent bg-accent/10 border border-accent/20 rounded px-2 py-0.5 uppercase tracking-wider">
-                          {d.note}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* Partners */}
-      <section className="py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <AnimatedSection>
-            <SectionHeading
-              tag="Ecosystem"
-              title="Partner Network"
-              description="A growing ecosystem of channel partners, system integrators, and strategic allies."
-            />
-          </AnimatedSection>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            {partners.map((partner, i) => (
-              <AnimatedSection key={partner.name} delay={i * 0.08}>
-                <div className="group rounded-lg border border-dashed border-border bg-card p-5 text-center transition-all hover:border-accent/30">
-                  <div className="mx-auto w-10 h-10 rounded border border-border bg-background flex items-center justify-center mb-3 group-hover:border-accent/30 transition-colors">
-                    <Handshake size={18} className="text-accent" />
-                  </div>
-                  <h4 className="text-sm font-semibold mb-1">{partner.name}</h4>
-                  <p className="text-[11px] text-muted-dark font-mono tracking-wider">
-                    {partner.type}
-                  </p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Testimonials */}
       <section className="py-24 lg:py-32 bg-card">

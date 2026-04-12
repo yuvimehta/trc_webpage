@@ -15,10 +15,6 @@ import {
   Zap,
   Shield,
   Gauge,
-  Cpu,
-  Repeat,
-  Cloud,
-  Code,
 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import PlaceholderImage from "@/components/PlaceholderImage";
@@ -111,57 +107,6 @@ const aiFeatures = [
     title: "Fleet Management",
     description:
       "Centralized dashboard to monitor, manage, and update all deployed cobots across facilities.",
-  },
-];
-
-const businessModels = [
-  {
-    icon: Cpu,
-    number: "01",
-    title: "Hardware Sales",
-    subtitle: "One-time capital purchase",
-    items: [
-      "Cobot unit + end-effector",
-      "Application engineering fee",
-      "Custom tooling & integration",
-    ],
-    margin: "35-45%",
-  },
-  {
-    icon: Repeat,
-    number: "02",
-    title: "Service Contracts",
-    subtitle: "Recurring annual revenue",
-    items: [
-      "AMC (Annual Maintenance)",
-      "Remote monitoring + spare kits",
-      "Priority support SLA",
-    ],
-    margin: "60-70%",
-  },
-  {
-    icon: Cloud,
-    number: "03",
-    title: "Robotics-as-a-Service",
-    subtitle: "Zero-CAPEX subscription",
-    items: [
-      "Monthly fee model for MSMEs",
-      "Removes adoption barrier",
-      "Recurring, predictable revenue",
-    ],
-    margin: "Subscription",
-  },
-  {
-    icon: Code,
-    number: "04",
-    title: "AI Software Licensing",
-    subtitle: "Future scalable revenue",
-    items: [
-      "Programming & fleet mgmt SW",
-      "Standalone SaaS licensing",
-      "High gross margin opportunity",
-    ],
-    margin: "80%+",
   },
 ];
 
@@ -341,59 +286,6 @@ export default function ProductPage() {
                 ))}
               </div>
             </AnimatedSection>
-          </div>
-        </div>
-      </section>
-
-      {/* Business Models */}
-      <section className="py-24 lg:py-32 bg-card">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <AnimatedSection>
-            <SectionHeading
-              tag="Business Model"
-              title="Multiple Revenue Streams"
-              description="Full-stack ownership of hardware + software + service creates a durable moat and multiple monetisation levers."
-            />
-          </AnimatedSection>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {businessModels.map((model, i) => (
-              <AnimatedSection key={model.title} delay={i * 0.1}>
-                <div className="group rounded-lg border border-dashed border-border bg-background p-6 transition-all hover:border-accent/30 h-full flex flex-col">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-9 h-9 rounded border border-border bg-card flex items-center justify-center group-hover:border-accent/30 transition-colors">
-                      <model.icon size={18} className="text-accent" />
-                    </div>
-                    <span className="text-[11px] font-mono text-muted-dark tracking-widest">
-                      {model.number}
-                    </span>
-                  </div>
-                  <h3 className="text-base font-semibold mb-1">{model.title}</h3>
-                  <p className="text-xs text-muted-dark mb-4 font-mono">
-                    {model.subtitle}
-                  </p>
-                  <ul className="space-y-2 flex-1">
-                    {model.items.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start gap-2 text-sm text-muted"
-                      >
-                        <span className="mt-1.5 w-1 h-1 rounded-full bg-accent shrink-0" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-4 pt-4 border-t border-border">
-                    <span className="text-[10px] font-mono text-muted-dark uppercase tracking-widest">
-                      Margin:{" "}
-                    </span>
-                    <span className="text-sm font-semibold text-accent font-mono">
-                      {model.margin}
-                    </span>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
           </div>
         </div>
       </section>

@@ -256,29 +256,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Traction */}
-      <section className="py-24 lg:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 dot-grid" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
-        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-          <AnimatedSection>
-            <SectionHeading
-              tag="Traction"
-              title="Proven Results, Real Factories"
-              description="Not prototypes — live production deployments generating real ROI for enterprise clients."
-            />
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.2}>
-            <div className="grid grid-cols-3 gap-8 md:gap-12 max-w-3xl mx-auto">
-              <StatCounter end={19} suffix="+" label="Enterprise Clients" />
-              <StatCounter end={115} suffix="%" label="YoY Growth" />
-              <StatCounter end={80} suffix="%" label="Repeat Rate" />
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="py-24 lg:py-32 bg-card">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
