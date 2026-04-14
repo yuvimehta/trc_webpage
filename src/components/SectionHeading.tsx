@@ -18,11 +18,11 @@ export default function SectionHeading({
       }`}
     >
       {tag && (
-        <span className="inline-block text-accent text-[11px] font-mono font-semibold uppercase tracking-[0.2em] mb-4">
-          [ {tag} ]
+        <span className="inline-block text-accent text-xs font-semibold uppercase tracking-widest mb-3">
+          {tag}
         </span>
       )}
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
+      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-foreground">
         {title}
       </h2>
       {description && (

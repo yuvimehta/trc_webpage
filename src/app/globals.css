@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #000000;
-  --foreground: #ededed;
-  --card: #0a0a0a;
-  --card-hover: #141414;
-  --border: #1e1e1e;
-  --accent: #FF3B30;
-  --accent-light: #FF6B4A;
-  --muted: #999999;
-  --muted-dark: #555555;
+  --background: #faf8f5;
+  --foreground: #2d2a26;
+  --card: #ffffff;
+  --card-hover: #f5f2ee;
+  --border: #e5e0d8;
+  --accent: #2db87b;
+  --accent-light: #5cd4a0;
+  --muted: #6e6a64;
+  --muted-dark: #a09a92;
 }
 
 @theme inline {
@@ -22,8 +22,8 @@
   --color-accent-light: var(--accent-light);
   --color-muted: var(--muted);
   --color-muted-dark: var(--muted-dark);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-poppins);
+  --font-mono: var(--font-space-mono);
 }
 
 * {
@@ -37,12 +37,12 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-poppins), system-ui, -apple-system, sans-serif;
 }
 
 ::selection {
-  background: rgba(255, 59, 48, 0.3);
-  color: #fff;
+  background: rgba(45, 184, 123, 0.25);
+  color: var(--foreground);
 }
 
 ::-webkit-scrollbar {
@@ -50,26 +50,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #000;
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2a1a18;
+  background: #d0ccc5;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF3B30;
-}
-
-.dot-grid {
-  background-image: radial-gradient(circle, rgba(255, 59, 48, 0.08) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-.dot-grid-subtle {
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 20px 20px;
+  background: var(--accent);
 }
 
 @keyframes marquee {

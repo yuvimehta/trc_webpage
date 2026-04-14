@@ -13,7 +13,7 @@ export default function Marquee({ items }: MarqueeProps) {
   const doubled = [...items, ...items];
 
   return (
-    <div className="relative overflow-hidden py-8 bg-card">
+    <div className="relative overflow-hidden py-10 bg-white">
       <div className="flex animate-marquee w-max items-center">
         {doubled.map((item, i) => (
           <div
@@ -25,7 +25,7 @@ export default function Marquee({ items }: MarqueeProps) {
               alt={item.name}
               width={160}
               height={64}
-              className="h-20 w-auto object-contain"
+              className="h-14 w-auto object-contain"
             />
           </div>
         ))}

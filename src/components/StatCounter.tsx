@@ -44,12 +44,12 @@ export default function StatCounter({
 
   return (
     <div ref={ref} className="text-center">
-      <div className="text-4xl md:text-5xl font-bold font-mono text-foreground mb-2 tracking-tighter">
+      <div className="text-4xl md:text-5xl font-bold text-foreground mb-2 tracking-tight">
         {prefix}
         {display}
         {suffix}
       </div>
-      <div className="text-[11px] text-muted-dark font-mono uppercase tracking-widest">
+      <div className="text-sm text-muted font-medium">
         {label}
       </div>
     </div>

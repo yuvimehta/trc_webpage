@@ -1,6 +1,8 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Brain,
   Factory,
@@ -15,11 +17,21 @@ import {
   Zap,
   Shield,
   Gauge,
+  Check,
+  X,
+  Minus,
 } from "lucide-react";
-import Image from "next/image";
 import SectionHeading from "@/components/SectionHeading";
-import PlaceholderImage from "@/components/PlaceholderImage";
 import AnimatedSection from "@/components/AnimatedSection";
+
+const CobotViewer = dynamic(() => import("@/components/CobotViewer"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full aspect-square max-h-[600px] min-h-[400px] rounded-2xl bg-gradient-to-br from-[#f0f7f4] to-[#e8ede8] border border-border flex items-center justify-center">
+      <div className="animate-pulse text-muted text-sm">Loading 3D model…</div>
+    </div>
+  ),
+});
 
 const differentiators = [
   {
@@ -111,20 +123,74 @@ const aiFeatures = [
   },
 ];
 
+const comparisonFeatures = [
+  "India-First Design",
+  "< 72hr Deployment",
+  "AI-Assisted Programming",
+  "Full Local Support",
+  "MSME Price Point",
+  "RaaS / Zero CAPEX",
+  "Integrated HW+SW+Service",
+];
+
+type Rating = "yes" | "no" | "partial";
+
+const competitors: {
+  name: string;
+  ratings: Rating[];
+  highlight?: boolean;
+}[] = [
+  {
+    name: "TRC",
+    ratings: ["yes", "yes", "yes", "yes", "yes", "yes", "yes"],
+    highlight: true,
+  },
+  {
+    name: "Global Brands",
+    ratings: ["no", "no", "partial", "no", "no", "no", "no"],
+  },
+  {
+    name: "Chinese OEMs",
+    ratings: ["partial", "no", "no", "no", "partial", "no", "no"],
+  },
+  {
+    name: "Integrators",
+    ratings: ["no", "no", "no", "partial", "no", "no", "no"],
+  },
+];
+
+function RatingIcon({ rating }: { rating: Rating }) {
+  if (rating === "yes")
+    return (
+      <span className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-accent/10">
+        <Check size={14} className="text-accent" />
+      </span>
+    );
+  if (rating === "no")
+    return (
+      <span className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-red-50">
+        <X size={14} className="text-red-400" />
+      </span>
+    );
+  return (
+    <span className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-yellow-50">
+      <Minus size={14} className="text-yellow-500" />
+    </span>
+  );
+}
+
 export default function ProductPage() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 relative overflow-hidden">
-        <div className="absolute inset-0 dot-grid" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/90 to-black" />
+      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 relative overflow-hidden bg-gradient-to-br from-[#f0f7f4] via-background to-[#f5f0eb]">
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection>
-              <span className="inline-block text-[11px] font-mono uppercase tracking-[0.2em] text-accent mb-4">
-                [ Product ]
+              <span className="inline-block text-xs font-semibold uppercase tracking-widest text-accent mb-4">
+                Product
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[0.95] mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[0.95] mb-6 text-foreground">
                 The TRC
                 <br />
                 <span className="text-accent">Cobot</span>
@@ -140,8 +206,8 @@ export default function ProductPage() {
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded border border-accent bg-accent px-6 py-3 text-sm font-mono uppercase tracking-wider text-white transition-all hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20"
+                  href="/#contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20"
                 >
                   Request a Demo
                   <ArrowRight size={16} />
@@ -149,21 +215,14 @@ export default function ProductPage() {
               </div>
             </AnimatedSection>
             <AnimatedSection delay={0.2}>
-              <Image
-                src="/assets/logos/Cobot.png"
-                alt="TRC Cobot"
-                width={600}
-                height={600}
-                className="w-full h-auto rounded-lg object-contain"
-                priority
-              />
+              <CobotViewer />
             </AnimatedSection>
           </div>
         </div>
       </section>
 
       {/* Key Specs */}
-      <section className="py-14 border-y border-border bg-card">
+      <section className="py-14 bg-white border-y border-border">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedSection>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -174,10 +233,10 @@ export default function ProductPage() {
                 { value: "24/7", label: "Remote Monitoring" },
               ].map((spec) => (
                 <div key={spec.label} className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold font-mono text-foreground mb-1 tracking-tighter">
+                  <div className="text-2xl md:text-3xl font-bold text-foreground mb-1 tracking-tight">
                     {spec.value}
                   </div>
-                  <div className="text-[11px] text-muted-dark font-mono uppercase tracking-widest">
+                  <div className="text-sm text-muted">
                     {spec.label}
                   </div>
                 </div>
@@ -201,11 +260,11 @@ export default function ProductPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {differentiators.map((item, i) => (
               <AnimatedSection key={item.title} delay={i * 0.08}>
-                <div className="group rounded-lg border border-dashed border-border bg-card p-6 transition-all hover:border-accent/30 hover:shadow-[0_0_30px_rgba(255,59,48,0.05)] h-full">
-                  <div className="mb-4 w-10 h-10 rounded border border-border bg-background flex items-center justify-center group-hover:border-accent/30 transition-colors">
+                <div className="group rounded-2xl border border-border bg-white p-6 transition-all hover:shadow-lg hover:shadow-accent/5 hover:border-accent/30 h-full">
+                  <div className="mb-4 w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/15 transition-colors">
                     <item.icon size={20} className="text-accent" />
                   </div>
-                  <h3 className="text-base font-semibold mb-2">
+                  <h3 className="text-base font-semibold mb-2 text-foreground">
                     {item.title}
                   </h3>
                   <p className="text-sm text-muted leading-relaxed">
@@ -219,7 +278,7 @@ export default function ProductPage() {
       </section>
 
       {/* Deployment Process */}
-      <section className="py-24 lg:py-32 bg-card">
+      <section className="py-24 lg:py-32 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedSection>
             <SectionHeading
@@ -230,18 +289,18 @@ export default function ProductPage() {
           </AnimatedSection>
 
           <div className="grid md:grid-cols-3 gap-6 relative">
-            <div className="hidden md:block absolute top-14 left-[20%] right-[20%] h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+            <div className="hidden md:block absolute top-14 left-[20%] right-[20%] h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
 
             {deploymentSteps.map((step, i) => (
               <AnimatedSection key={step.title} delay={i * 0.15}>
                 <div className="relative text-center">
-                  <div className="relative z-10 mx-auto mb-6 inline-flex items-center justify-center w-14 h-14 rounded border border-border bg-background">
+                  <div className="relative z-10 mx-auto mb-6 inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-accent/10">
                     <step.icon size={24} className="text-accent" />
                   </div>
-                  <span className="block text-[11px] font-mono text-accent mb-2 tracking-widest">
+                  <span className="block text-xs font-semibold text-accent mb-2 tracking-widest">
                     Step {step.step}
                   </span>
-                  <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+                  <h3 className="text-xl font-bold mb-3 text-foreground">{step.title}</h3>
                   <p className="text-sm text-muted leading-relaxed max-w-xs mx-auto">
                     {step.description}
                   </p>
@@ -258,18 +317,18 @@ export default function ProductPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection>
               <Image
-                src="/assets/block_program.png"
+                src="https://storage.googleapis.com/trc_web/assets/others/block_program.png"
                 alt="AI Programming Interface"
                 width={800}
                 height={600}
-                className="w-full h-auto rounded-lg object-contain"
+                className="w-full h-auto rounded-2xl object-contain"
               />
             </AnimatedSection>
             <AnimatedSection delay={0.2}>
-              <span className="inline-block text-[11px] font-mono uppercase tracking-[0.2em] text-accent mb-4">
-                [ AI-Powered ]
+              <span className="inline-block text-xs font-semibold uppercase tracking-widest text-accent mb-4">
+                AI-Powered
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight mb-6 text-foreground">
                 Programming Made
                 <br />
                 <span className="text-accent">Effortless</span>
@@ -284,10 +343,10 @@ export default function ProductPage() {
                 {aiFeatures.map((feature) => (
                   <div
                     key={feature.title}
-                    className="rounded-lg border border-dashed border-border bg-card p-4"
+                    className="rounded-2xl border border-border bg-white p-4"
                   >
                     <feature.icon size={18} className="text-accent mb-2" />
-                    <h4 className="text-sm font-semibold mb-1">
+                    <h4 className="text-sm font-semibold mb-1 text-foreground">
                       {feature.title}
                     </h4>
                     <p className="text-xs text-muted leading-relaxed">
@@ -301,13 +360,65 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 lg:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 dot-grid" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
-        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 text-center">
+      {/* Competitive Advantage */}
+      <section className="py-24 lg:py-32 bg-white">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedSection>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6">
+            <SectionHeading
+              tag="Competitive Advantage"
+              title="Why TRC Wins"
+              description="The only player in India offering an integrated hardware + software + service cobot platform at MSME-friendly pricing."
+            />
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.2}>
+            <div className="overflow-x-auto rounded-2xl border border-border">
+              <table className="w-full min-w-[600px]">
+                <thead>
+                  <tr className="border-b border-border bg-background">
+                    <th className="text-left py-4 px-4 text-xs font-semibold text-muted uppercase tracking-wider">
+                      Feature
+                    </th>
+                    {competitors.map((c) => (
+                      <th
+                        key={c.name}
+                        className={`text-center py-4 px-3 text-xs font-semibold uppercase tracking-wider ${
+                          c.highlight ? "text-accent" : "text-muted-dark"
+                        }`}
+                      >
+                        {c.name}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonFeatures.map((feature, fi) => (
+                    <tr
+                      key={feature}
+                      className="border-b border-border/50 hover:bg-card-hover transition-colors"
+                    >
+                      <td className="py-3.5 px-4 text-sm font-medium text-foreground">
+                        {feature}
+                      </td>
+                      {competitors.map((c) => (
+                        <td key={c.name} className="text-center py-3.5 px-3">
+                          <RatingIcon rating={c.ratings[fi]} />
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 lg:py-32 bg-gradient-to-br from-[#f0f7f4] via-background to-[#f5f0eb]">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
+          <AnimatedSection>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 text-foreground">
               Ready to See the
               <br />
               <span className="text-accent">TRC Cobot in Action?</span>
@@ -317,8 +428,8 @@ export default function ProductPage() {
               will assess your needs and show you the right configuration.
             </p>
             <Link
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded border border-accent bg-accent px-8 py-3 text-sm font-mono uppercase tracking-wider text-white transition-all hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20"
+              href="/#contact"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20"
             >
               Contact Us
               <ArrowRight size={16} />
