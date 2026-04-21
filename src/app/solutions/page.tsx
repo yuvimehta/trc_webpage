@@ -116,7 +116,7 @@ export default function SolutionsPage() {
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="/#contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-on-accent transition-all hover:bg-accent-light hover:shadow-lg hover:shadow-accent/20"
                 >
                   Get a Quote
                   <ArrowRight size={16} />
@@ -143,7 +143,7 @@ export default function SolutionsPage() {
       </section>
 
       {/* Stats Strip */}
-      <section className="py-14 bg-white border-y border-border">
+      <section className="py-14 bg-card border-y border-border">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedSection>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -181,7 +181,7 @@ export default function SolutionsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {services.map((service, i) => (
               <AnimatedSection key={service.title} delay={i * 0.08}>
-                <div className="group rounded-2xl border border-border bg-white p-6 transition-all hover:shadow-lg hover:shadow-accent/5 hover:border-accent/30 h-full">
+                <div className="card-3d group rounded-2xl border border-border bg-card p-6 transition-all hover:shadow-lg hover:shadow-accent/5 hover:border-accent/30 h-full">
                   <div className="mb-4 w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/15 transition-colors">
                     <service.icon size={20} className="text-accent" />
                   </div>
@@ -231,7 +231,7 @@ export default function SolutionsPage() {
       </section>
 
       {/* Deployments 3D Viewer */}
-      <section className="py-24 lg:py-32 bg-white">
+      <section className="py-24 lg:py-32 bg-card">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedSection>
             <SectionHeading
@@ -255,7 +255,7 @@ export default function SolutionsPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 lg:py-32 bg-white">
+      <section className="py-24 lg:py-32 bg-card">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
           <AnimatedSection>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 text-foreground">
@@ -269,7 +269,7 @@ export default function SolutionsPage() {
             </p>
             <Link
               href="/#contact"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-on-accent transition-all hover:bg-accent-light hover:shadow-lg hover:shadow-accent/20"
             >
               Contact Us
               <ArrowRight size={16} />

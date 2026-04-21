@@ -10,17 +10,26 @@ const quickLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-border">
+    <footer className="bg-card border-t border-border">
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
             <Link href="/" className="inline-block mb-4">
+              {/* FOOTER LOGO SIZE — tweak `h-24` (Tailwind) to resize.
+                  h-20 = 80px, h-24 = 96px, h-28 = 112px. */}
               <Image
                 src="https://storage.googleapis.com/trc_web/assets/logos/TRCLogo.png"
                 alt="TRC"
-                width={140}
-                height={40}
-                className="h-50 w-auto object-contain"
+                width={200}
+                height={60}
+                className="logo-light h-42 w-auto object-contain"
+              />
+              <Image
+                src="https://storage.googleapis.com/trc_web/assets/logos/TRCLogo.png"
+                alt="TRC"
+                width={200}
+                height={60}
+                className="logo-dark h-42 w-auto object-contain"
               />
             </Link>
             <p className="text-sm text-muted leading-relaxed">

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins, Space_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ThemeToggle from "@/components/ThemeToggle";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -48,6 +49,15 @@ export const metadata: Metadata = {
   },
 };
 
+const themeInitScript = `(() => {
+  try {
+    const stored = localStorage.getItem("trc_theme");
+    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const theme = stored === "dark" || stored === "light" ? stored : (prefersDark ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  } catch (_) {}
+})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -57,11 +67,24 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${poppins.variable} ${spaceMono.variable} antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <link
+          rel="preload"
+          href="https://storage.googleapis.com/trc_web/assets/3d_files/cobot.glb"
+          as="fetch"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="min-h-screen flex flex-col bg-background text-foreground">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <div className="fixed bottom-6 right-6 z-[60]">
+          <ThemeToggle />
+        </div>
       </body>
     </html>
   );

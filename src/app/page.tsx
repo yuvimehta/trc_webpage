@@ -16,9 +16,9 @@ import {
   Phone,
   Send,
 } from "lucide-react";
-import StatCounter from "@/components/StatCounter";
 import SectionHeading from "@/components/SectionHeading";
 import AnimatedSection from "@/components/AnimatedSection";
+
 const problems = [
   {
     icon: DollarSign,
@@ -56,59 +56,44 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero — Full Page */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#f0f7f4] via-background to-[#f5f0eb]">
-        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 pt-24 pb-20 text-center">
-          <AnimatedSection>
-            <span className="inline-flex items-center gap-2 text-sm font-medium text-accent mb-8 bg-accent/10 px-4 py-1.5 rounded-full">
-              <span className="inline-block w-2 h-2 rounded-full bg-accent animate-pulse" />
-              19+ enterprise clients &middot; 80% repeat orders
+      {/* Hero — static centered headline, no 3D scene, no intro animation */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[var(--hero-from)] via-[var(--hero-via)] to-[var(--hero-to)] px-6 lg:px-12 pt-28 pb-24">
+        <div className="w-full max-w-4xl text-center">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] mb-6 text-foreground text-balance">
+            India&apos;s Physical AI
+            <br />
+            <span className="text-accent mt-2 inline-block">
+              Collaborative Robot
             </span>
-          </AnimatedSection>
+          </h1>
 
-          <AnimatedSection delay={0.1}>
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.1] mb-6 text-foreground">
-              India&apos;s Physical AI
-              <br />
-              <span className="text-accent mt-2 inline-block">Collaborative Robot</span>
-            </h1>
-          </AnimatedSection>
+          <p className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted leading-relaxed mb-3 text-balance">
+            Making factory automation accessible to 63M+ Indian MSMEs.
+            Plug-and-play deployment. Local support.
+          </p>
+          <p className="mx-auto max-w-2xl text-sm sm:text-base md:text-lg text-muted-dark leading-relaxed mb-8 text-balance">
+            40-60% lower cost than imported cobots. Built for Indian shop
+            floors.
+          </p>
 
-          <AnimatedSection delay={0.2}>
-            <p className="mx-auto max-w-xl text-base md:text-lg text-muted leading-relaxed mb-12">
-              Making factory automation accessible to 63M+ Indian MSMEs.
-              Plug-and-play deployment. Local support. 40-60% lower cost.
-            </p>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.3}>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-20">
-              <Link
-                href="/product"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20"
-              >
-                Our Robot
-                <ArrowRight size={16} />
-              </Link>
-              <Link
-                href="/solutions"
-                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-foreground/15 px-8 py-3.5 text-sm font-semibold text-foreground transition-all hover:border-accent hover:text-accent"
-              >
-                Automation Solutions
-              </Link>
-            </div>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.4}>
-            <div className="grid grid-cols-3 gap-8 md:gap-12 max-w-2xl mx-auto">
-              <StatCounter end={19} suffix="+" label="Clients" />
-              <StatCounter end={80} suffix="%" label="Repeat Orders" />
-              <StatCounter end={72} prefix="<" suffix="hr" label="Deployment" />
-            </div>
-          </AnimatedSection>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link
+              href="/product"
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-on-accent transition-all hover:bg-accent-light hover:shadow-lg hover:shadow-accent/20"
+            >
+              Our Robot
+              <ArrowRight size={16} />
+            </Link>
+            <Link
+              href="/solutions"
+              className="inline-flex items-center gap-2 rounded-full border-2 border-foreground/20 px-6 py-3 text-sm font-semibold text-foreground transition-all hover:bg-accent/5 hover:border-foreground/40"
+            >
+              Automation Solutions
+            </Link>
+          </div>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-20">
           <ChevronDown size={20} className="text-muted-dark" />
         </div>
       </section>
@@ -127,7 +112,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-6">
             <AnimatedSection delay={0.1}>
               <Link href="/solutions" className="block group">
-                <div className="rounded-2xl border border-border bg-white p-8 h-full transition-all hover:shadow-lg hover:shadow-accent/5 hover:border-accent/30">
+                <div className="card-3d rounded-2xl border border-border bg-card p-8 h-full transition-all hover:shadow-lg hover:shadow-accent/5 hover:border-accent/30">
                   <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-6 group-hover:bg-accent/15 transition-colors">
                     <Cog size={24} className="text-accent" />
                   </div>
@@ -152,7 +137,7 @@ export default function Home() {
 
             <AnimatedSection delay={0.2}>
               <Link href="/product" className="block group">
-                <div className="rounded-2xl border border-border bg-white p-8 h-full transition-all hover:shadow-lg hover:shadow-accent/5 hover:border-accent/30">
+                <div className="card-3d rounded-2xl border border-border bg-card p-8 h-full transition-all hover:shadow-lg hover:shadow-accent/5 hover:border-accent/30">
                   <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-6 group-hover:bg-accent/15 transition-colors">
                     <Bot size={24} className="text-accent" />
                   </div>
@@ -178,7 +163,7 @@ export default function Home() {
       </section>
 
       {/* Problem */}
-      <section className="py-24 lg:py-32 bg-white">
+      <section className="py-24 lg:py-32 bg-card">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedSection>
             <SectionHeading
@@ -191,7 +176,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {problems.map((problem, i) => (
               <AnimatedSection key={problem.title} delay={i * 0.1}>
-                <div className="group rounded-2xl border border-border bg-background p-6 transition-all hover:shadow-lg hover:shadow-accent/5 hover:border-accent/30 h-full">
+                <div className="card-3d group rounded-2xl border border-border bg-background p-6 transition-all hover:shadow-lg hover:shadow-accent/5 hover:border-accent/30 h-full">
                   <div className="mb-4 w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/15 transition-colors">
                     <problem.icon size={20} className="text-accent" />
                   </div>
@@ -209,7 +194,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-24 lg:py-32 bg-white">
+      <section id="contact" className="py-24 lg:py-32 bg-card">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedSection>
             <SectionHeading
@@ -222,7 +207,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-5 gap-12">
             <div className="lg:col-span-3">
               <AnimatedSection delay={0.1}>
-                <div className="rounded-2xl border border-border bg-background p-8">
+                <div className="card-3d rounded-2xl border border-border bg-background p-8">
                   {submitted ? (
                     <div className="text-center py-16">
                       <div className="mx-auto w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-6">
@@ -251,7 +236,7 @@ export default function Home() {
                             id="name"
                             required
                             placeholder="Your name"
-                            className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-dark focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-colors"
+                            className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground placeholder:text-muted-dark focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-colors"
                           />
                         </div>
                         <div>
@@ -266,7 +251,7 @@ export default function Home() {
                             id="email"
                             required
                             placeholder="you@company.com"
-                            className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-dark focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-colors"
+                            className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground placeholder:text-muted-dark focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-colors"
                           />
                         </div>
                       </div>
@@ -282,7 +267,7 @@ export default function Home() {
                           type="text"
                           id="company"
                           placeholder="Your company"
-                          className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-dark focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-colors"
+                          className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground placeholder:text-muted-dark focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-colors"
                         />
                       </div>
 
@@ -295,7 +280,7 @@ export default function Home() {
                         </label>
                         <select
                           id="interest"
-                          className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-foreground focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-colors"
+                          className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-colors"
                         >
                           <option value="">Select an option</option>
                           <option value="automation">Automation Solutions</option>
@@ -319,13 +304,13 @@ export default function Home() {
                           rows={5}
                           required
                           placeholder="Tell us about your manufacturing needs..."
-                          className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-dark focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-colors resize-none"
+                          className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground placeholder:text-muted-dark focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-colors resize-none"
                         />
                       </div>
 
                       <button
                         type="submit"
-                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-3 text-sm font-semibold text-white transition-all hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20"
+                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-3 text-sm font-semibold text-on-accent transition-all hover:bg-accent-light hover:shadow-lg hover:shadow-accent/20"
                       >
                         Send Message
                         <ArrowRight size={16} />

@@ -65,7 +65,7 @@ export default function ModelCarousel({
       {/* Left Arrow */}
       <button
         onClick={prev}
-        className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/80 backdrop-blur border border-border shadow-md flex items-center justify-center hover:bg-white transition-colors"
+        className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-card/80 backdrop-blur border border-border shadow-md flex items-center justify-center hover:bg-card transition-colors"
         aria-label="Previous model"
       >
         <ChevronLeft size={20} className="text-foreground" />
@@ -74,7 +74,7 @@ export default function ModelCarousel({
       {/* Right Arrow */}
       <button
         onClick={next}
-        className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/80 backdrop-blur border border-border shadow-md flex items-center justify-center hover:bg-white transition-colors"
+        className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-card/80 backdrop-blur border border-border shadow-md flex items-center justify-center hover:bg-card transition-colors"
         aria-label="Next model"
       >
         <ChevronRight size={20} className="text-foreground" />

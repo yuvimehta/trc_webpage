@@ -19,7 +19,7 @@ export default function CaseStudyCard({
 }: CaseStudyCardProps) {
   return (
     <AnimatedSection delay={delay}>
-      <div className="group rounded-2xl border border-border bg-white p-6 h-full transition-all hover:shadow-lg hover:shadow-accent/5 hover:border-accent/30">
+      <div className="card-3d group rounded-2xl border border-border bg-card p-6 h-full transition-all hover:shadow-lg hover:shadow-accent/5 hover:border-accent/30">
         <div className="flex items-center justify-between mb-5">
           <span className="text-xs font-semibold uppercase tracking-widest text-accent">
             {industry}

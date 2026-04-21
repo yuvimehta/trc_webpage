@@ -1,15 +1,43 @@
 @import "tailwindcss";
 
 :root {
-  --background: #faf8f5;
-  --foreground: #2d2a26;
+  --background: #efeae0;
+  --foreground: #1a1714;
   --card: #ffffff;
-  --card-hover: #f5f2ee;
-  --border: #e5e0d8;
-  --accent: #2db87b;
-  --accent-light: #5cd4a0;
-  --muted: #6e6a64;
-  --muted-dark: #a09a92;
+  --card-hover: #f6f1e9;
+  --border: #e3d9cc;
+  --accent: #15120f;
+  --accent-light: #3a3633;
+  --accent-soft: #c7b5ae;
+  --on-accent: #ffffff;
+  --muted: #8c7c78;
+  --muted-dark: #5a4f4a;
+  --hero-from: #f5efe4;
+  --hero-via: #efeae0;
+  --hero-to: #e6d9c8;
+  --surface-overlay: rgba(255, 255, 255, 0.9);
+  --scrollbar-thumb: #c7b5ae;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --background: #15120f;
+  --foreground: #efeae0;
+  --card: #221e1a;
+  --card-hover: #2c2722;
+  --border: #3a342f;
+  --accent: #efeae0;
+  --accent-light: #c7b5ae;
+  --accent-soft: #6f5f57;
+  --on-accent: #15120f;
+  --muted: #b4a59a;
+  --muted-dark: #d6c9bd;
+  --hero-from: #000000;
+  --hero-via: #14100d;
+  --hero-to: #3a2c1f;
+  --surface-overlay: rgba(34, 30, 26, 0.9);
+  --scrollbar-thumb: #6f5f57;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -20,6 +48,8 @@
   --color-border: var(--border);
   --color-accent: var(--accent);
   --color-accent-light: var(--accent-light);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
   --color-muted: var(--muted);
   --color-muted-dark: var(--muted-dark);
   --font-sans: var(--font-poppins);
@@ -30,18 +60,34 @@
   box-sizing: border-box;
 }
 
+/* Theme-aware logo visibility. Both logos are rendered; CSS picks the
+   right one based on the `data-theme` attribute on <html>, so there is
+   no hydration flash. */
+.logo-dark {
+  display: none;
+}
+[data-theme="dark"] .logo-light {
+  display: none;
+}
+[data-theme="dark"] .logo-dark {
+  display: block;
+}
+
 html {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+  overflow-y: scroll;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-poppins), system-ui, -apple-system, sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 ::selection {
-  background: rgba(45, 184, 123, 0.25);
+  background: rgba(199, 181, 174, 0.45);
   color: var(--foreground);
 }
 
@@ -54,7 +100,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d0ccc5;
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
 }
 
@@ -73,4 +119,51 @@ body {
 
 .animate-marquee:hover {
   animation-play-state: paused;
+}
+
+/* .card-3d: subtle perspective tilt + lift + gloss sheen on hover,
+   composes with existing `hover:shadow-lg hover:shadow-accent/5
+   hover:border-accent/30` utilities on content cards. */
+.card-3d {
+  position: relative;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  will-change: transform;
+}
+
+.card-3d::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.04) 35%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  opacity: 0.7;
+}
+
+[data-theme="dark"] .card-3d::after {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 35%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  opacity: 0.9;
+}
+
+.card-3d:hover {
+  transform: perspective(900px) rotateX(2deg) rotateY(-2deg) translateZ(6px);
+  box-shadow:
+    0 20px 40px -12px rgba(0, 0, 0, 0.22),
+    0 8px 16px -8px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] .card-3d:hover {
+  box-shadow:
+    0 20px 44px -10px rgba(0, 0, 0, 0.6),
+    0 6px 14px -6px rgba(0, 0, 0, 0.45);
 }

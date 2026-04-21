@@ -64,7 +64,7 @@ export default function ClientsPage() {
       <Marquee items={clientLogos} />
 
       {/* Testimonials */}
-      <section className="py-24 lg:py-32 bg-white">
+      <section className="py-24 lg:py-32 bg-card">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedSection>
             <SectionHeading

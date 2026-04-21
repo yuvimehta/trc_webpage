@@ -1,17 +1,50 @@
 "use client";
 
-import { Suspense, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import {
+  Suspense,
+  useEffect,
+  useMemo,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, useGLTF, Environment } from "@react-three/drei";
 import { Box3, Vector3 } from "three";
 import type { Group } from "three";
+import { retintMaterials } from "@/components/cobotMaterial";
 
-function GLBModel({ url, scaleOverride }: { url: string; scaleOverride?: number }) {
+const easeOutQuart = (t: number) => 1 - Math.pow(1 - t, 4);
+
+interface GLBModelProps {
+  url: string;
+  scaleOverride?: number;
+  introTurns?: number;
+  introDuration?: number;
+  applyRetint?: boolean;
+}
+
+function GLBModel({
+  url,
+  scaleOverride,
+  introTurns = 0,
+  introDuration = 0,
+  applyRetint = false,
+}: GLBModelProps) {
   const { scene } = useGLTF(url);
   const groupRef = useRef<Group>(null);
+  const elapsedRef = useRef(0);
+  const completedRef = useRef(introTurns <= 0 || introDuration <= 0);
+
+  const preparedScene = useMemo(() => {
+    if (!applyRetint) return scene;
+    const cloned = scene.clone(true);
+    retintMaterials(cloned);
+    return cloned;
+  }, [scene, applyRetint]);
 
   useEffect(() => {
-    const box = new Box3().setFromObject(scene);
+    const box = new Box3().setFromObject(preparedScene);
     const size = new Vector3();
     const center = new Vector3();
     box.getSize(size);
@@ -26,11 +59,31 @@ function GLBModel({ url, scaleOverride }: { url: string; scaleOverride?: number 
       groupRef.current.position.z = -center.z * scale;
       groupRef.current.position.y = -box.min.y * scale;
     }
-  }, [scene, scaleOverride]);
+  }, [preparedScene, scaleOverride]);
+
+  useEffect(() => {
+    elapsedRef.current = 0;
+    completedRef.current = introTurns <= 0 || introDuration <= 0;
+    if (groupRef.current && !completedRef.current) {
+      groupRef.current.rotation.y = -Math.PI * 2 * introTurns;
+    }
+  }, [introTurns, introDuration]);
+
+  useFrame((_, delta) => {
+    if (!groupRef.current || completedRef.current) return;
+    elapsedRef.current += delta;
+    const t = Math.min(elapsedRef.current / introDuration, 1);
+    const totalSpin = Math.PI * 2 * introTurns;
+    groupRef.current.rotation.y = -totalSpin + totalSpin * easeOutQuart(t);
+    if (t >= 1) {
+      groupRef.current.rotation.y = 0;
+      completedRef.current = true;
+    }
+  });
 
   return (
     <group ref={groupRef}>
-      <primitive object={scene} />
+      <primitive object={preparedScene} />
     </group>
   );
 }
@@ -39,7 +92,7 @@ function LoadingFallback() {
   return (
     <mesh>
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="#3ecf8e" wireframe />
+      <meshStandardMaterial color="#8c7c78" wireframe />
     </mesh>
   );
 }
@@ -60,6 +113,10 @@ interface ModelViewerProps {
   showBorder?: boolean;
   scaleOverride?: number;
   initialCameraState?: CameraState;
+  fill?: boolean;
+  introTurns?: number;
+  introDuration?: number;
+  applyRetint?: boolean;
 }
 
 function CameraStateManager({
@@ -113,6 +170,10 @@ const ModelViewer = forwardRef<ModelViewerHandle, ModelViewerProps>(
       showBorder = false,
       scaleOverride,
       initialCameraState,
+      fill = false,
+      introTurns = 0,
+      introDuration = 0,
+      applyRetint = false,
     },
     ref,
   ) {
@@ -126,9 +187,13 @@ const ModelViewer = forwardRef<ModelViewerHandle, ModelViewerProps>(
         },
     }));
 
+    const sizeClasses = fill
+      ? "w-full h-full"
+      : "w-full aspect-[4/3] max-h-[600px] min-h-[400px]";
+
     return (
       <div
-        className={`w-full aspect-[4/3] max-h-[600px] min-h-[400px] overflow-hidden ${showBorder ? "rounded-2xl bg-gradient-to-br from-[#d6e4dc] to-[#c8d4c8] border border-border" : ""} ${className}`}
+        className={`relative ${sizeClasses} overflow-hidden ${showBorder ? "rounded-2xl bg-gradient-to-br from-[#f5efe4] to-[#e6d9c8] border border-border" : ""} ${className}`}
       >
         <Canvas
           camera={{ position: initialCameraState?.position ?? [3, 2.5, 3], fov: 45 }}
@@ -141,7 +206,13 @@ const ModelViewer = forwardRef<ModelViewerHandle, ModelViewerProps>(
           <directionalLight position={[-5, 5, -3]} intensity={1.8} />
           <directionalLight position={[0, -2, 5]} intensity={0.4} />
           <Suspense fallback={<LoadingFallback />}>
-            <GLBModel url={modelUrl} scaleOverride={scaleOverride} />
+            <GLBModel
+              url={modelUrl}
+              scaleOverride={scaleOverride}
+              introTurns={introTurns}
+              introDuration={introDuration}
+              applyRetint={applyRetint}
+            />
             <Environment preset="city" />
           </Suspense>
           <OrbitControls
@@ -151,7 +222,13 @@ const ModelViewer = forwardRef<ModelViewerHandle, ModelViewerProps>(
             target={initialCameraState?.target ?? [0, 1, 0]}
           />
         </Canvas>
-        <div className="text-center py-2">
+        <div
+          className={
+            fill
+              ? "absolute bottom-2 right-3 pointer-events-none"
+              : "text-center py-2"
+          }
+        >
           <span className="text-xs text-muted select-none">
             Drag to rotate · Scroll to zoom{enablePan ? " · Right-click to pan" : ""}
           </span>

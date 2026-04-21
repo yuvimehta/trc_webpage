@@ -27,8 +27,8 @@ import AnimatedSection from "@/components/AnimatedSection";
 const CobotViewer = dynamic(() => import("@/components/CobotViewer"), {
   ssr: false,
   loading: () => (
-    <div className="w-full aspect-square max-h-[600px] min-h-[400px] rounded-2xl bg-gradient-to-br from-[#f0f7f4] to-[#e8ede8] border border-border flex items-center justify-center">
-      <div className="animate-pulse text-muted text-sm">Loading 3D model…</div>
+    <div className="w-full h-full flex items-center justify-center text-muted text-sm">
+      <span className="animate-pulse">Loading 3D model…</span>
     </div>
   ),
 });
@@ -182,47 +182,63 @@ function RatingIcon({ rating }: { rating: Rating }) {
 export default function ProductPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 relative overflow-hidden bg-gradient-to-br from-[#f0f7f4] via-background to-[#f5f0eb]">
-        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <AnimatedSection>
-              <span className="inline-block text-xs font-semibold uppercase tracking-widest text-accent mb-4">
-                Product
-              </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[0.95] mb-6 text-foreground">
-                The TRC
-                <br />
-                <span className="text-accent">Cobot</span>
-              </h1>
-              <p className="text-lg text-muted leading-relaxed mb-4">
-                India&apos;s first Physical AI-native collaborative robot —
-                purpose-built for Indian manufacturing with embedded intelligence,
-                zero-complexity adoption, and dramatically lower total cost of ownership.
-              </p>
-              <p className="text-sm text-muted-dark leading-relaxed mb-8">
-                Born from years of deploying automation solutions across Indian
-                factories, we know the pain points. The TRC Cobot is our answer.
-              </p>
-              <div className="flex flex-wrap gap-4">
+      {/* Hero — full-bleed 3D with text overlay */}
+      <section className="relative h-screen min-h-[620px] overflow-hidden bg-gradient-to-br from-[var(--hero-from)] via-[var(--hero-via)] to-[var(--hero-to)]">
+        <div className="absolute inset-0">
+          <CobotViewer
+            fill
+            introTurns={1}
+            introDuration={3.2}
+            initialCameraState={{
+              position: [0.6, 1.55, 1.1],
+              target: [-0.9, 1.35, 0],
+            }}
+          />
+        </div>
+
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[var(--background)]/80 via-[var(--background)]/25 to-transparent"
+        />
+
+        <div className="absolute inset-0 z-10 flex items-center pointer-events-none">
+          <div className="mx-auto max-w-7xl w-full px-6 lg:px-8">
+            <div className="max-w-xl pointer-events-auto">
+              <AnimatedSection>
+                <span className="inline-block text-xs font-semibold uppercase tracking-widest text-accent mb-4">
+                  Product
+                </span>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[0.95] mb-6 text-foreground">
+                  The TRC
+                  <br />
+                  <span className="text-accent">Cobot</span>
+                </h1>
+                <p className="text-lg text-muted leading-relaxed mb-4">
+                  India&apos;s first Physical AI-native collaborative robot —
+                  purpose-built for Indian manufacturing with embedded
+                  intelligence, zero-complexity adoption, and dramatically
+                  lower total cost of ownership.
+                </p>
+                <p className="text-sm text-muted-dark leading-relaxed mb-8">
+                  Born from years of deploying automation solutions across
+                  Indian factories, we know the pain points. The TRC Cobot is
+                  our answer.
+                </p>
                 <Link
                   href="/#contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20"
+                  className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-on-accent transition-all hover:bg-accent-light hover:shadow-lg hover:shadow-accent/20"
                 >
                   Request a Demo
                   <ArrowRight size={16} />
                 </Link>
-              </div>
-            </AnimatedSection>
-            <AnimatedSection delay={0.2}>
-              <CobotViewer />
-            </AnimatedSection>
+              </AnimatedSection>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Key Specs */}
-      <section className="py-14 bg-white border-y border-border">
+      <section className="py-14 bg-card border-y border-border">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedSection>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -260,7 +276,7 @@ export default function ProductPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {differentiators.map((item, i) => (
               <AnimatedSection key={item.title} delay={i * 0.08}>
-                <div className="group rounded-2xl border border-border bg-white p-6 transition-all hover:shadow-lg hover:shadow-accent/5 hover:border-accent/30 h-full">
+                <div className="card-3d group rounded-2xl border border-border bg-card p-6 transition-all hover:shadow-lg hover:shadow-accent/5 hover:border-accent/30 h-full">
                   <div className="mb-4 w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/15 transition-colors">
                     <item.icon size={20} className="text-accent" />
                   </div>
@@ -278,7 +294,7 @@ export default function ProductPage() {
       </section>
 
       {/* Deployment Process */}
-      <section className="py-24 lg:py-32 bg-white">
+      <section className="py-24 lg:py-32 bg-card">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedSection>
             <SectionHeading
@@ -343,7 +359,7 @@ export default function ProductPage() {
                 {aiFeatures.map((feature) => (
                   <div
                     key={feature.title}
-                    className="rounded-2xl border border-border bg-white p-4"
+                    className="card-3d rounded-2xl border border-border bg-card p-4"
                   >
                     <feature.icon size={18} className="text-accent mb-2" />
                     <h4 className="text-sm font-semibold mb-1 text-foreground">
@@ -361,7 +377,7 @@ export default function ProductPage() {
       </section>
 
       {/* Competitive Advantage */}
-      <section className="py-24 lg:py-32 bg-white">
+      <section className="py-24 lg:py-32 bg-card">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <AnimatedSection>
             <SectionHeading
@@ -429,7 +445,7 @@ export default function ProductPage() {
             </p>
             <Link
               href="/#contact"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-on-accent transition-all hover:bg-accent-light hover:shadow-lg hover:shadow-accent/20"
             >
               Contact Us
               <ArrowRight size={16} />
